@@ -25,6 +25,15 @@
     "clients-e2e": {
       "tags": [],
       "implicitDependencies": ["clients"]
+    },
+    "models": {
+      "tags": []
+    },
+    "redux": {
+      "tags": []
+    },
+    "ui": {
+      "tags": []
     }
   }
 }
