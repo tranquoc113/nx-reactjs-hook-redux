@@ -4,11 +4,19 @@ import Button from '@material-ui/core/Button';
 import { decrement, increment } from '@mycloudfly/redux';
 import {useTranslation} from "react-i18next";
 import 'bootstrap/dist/css/bootstrap.css';
+import Drawer from '@material-ui/core/Drawer';
+import React from 'react';
 
 export function DashboardPage() {
   const dispatch = useAppDispatch();
   const count = useAppSelector((state) => state.counter.value);
   const {t, i18n} = useTranslation('common');
+  const openDrawer=()=>{
+    console.log('go')
+  }
+  const closeDrawer=()=>{
+    console.log('leaave')
+  }
   return (
    <>
      <h1>DashBoard</h1>
@@ -22,7 +30,7 @@ export function DashboardPage() {
      <button onClick={() => i18n.changeLanguage('vi')}>vi</button>
      <button onClick={() => i18n.changeLanguage('en')}>en</button>
 
-     <button className="btn btn-success">
+     <button className="btn btn-success" onMouseOver={openDrawer} onMouseOut={closeDrawer}>
        Toast
      </button>
    </>
