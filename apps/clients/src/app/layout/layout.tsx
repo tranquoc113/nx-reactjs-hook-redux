@@ -28,7 +28,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const { Header, Sider, Content } = Layout;
 const { SubMenu } = Menu;
@@ -98,6 +98,7 @@ export function Layouts({children}:any) {
   }, [open]);
 
 
+
   return (
     <>
       <Layout>
@@ -139,7 +140,7 @@ export function Layouts({children}:any) {
                  <Avatar variant="rounded"  src={en} className={classesLa.large} style={{height:'24px',width:'24px'}}></Avatar>
                </div>
                <Button>Default</Button>
-               <div className="d-flex align-items-center me-5 cp"   ref={anchorRef}
+               <div className="d-flex align-items-center me-3 cp"   ref={anchorRef}
                     aria-controls={open ? 'menu-list-grow' : undefined}
                     aria-haspopup="true" onClick={handleToggle}>
                  <Avatar>H</Avatar>
@@ -178,7 +179,6 @@ export function Layouts({children}:any) {
           >
             Content
             {children}
-
           </Content>
         </Layout>
       </Layout>
