@@ -95,7 +95,10 @@ export default function LayoutDemo({children}:any) {
               className={clsx(classes.menuButton, {
               })}
             >
-              <MenuIcon color={open?'action':''}/>
+              {
+                open? <MenuIcon color="action"/>: <MenuIcon/>
+              }
+
             </IconButton>
           <AppBarLayout />
         </Toolbar>

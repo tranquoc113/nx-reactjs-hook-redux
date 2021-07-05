@@ -8,7 +8,7 @@ export default function BasePage(){
       <Switch>
         {
           /* Redirect from root URL to /dashboard. */
-          <Redirect exact from="/" to="/dashboard"/>
+          // <Redirect exact from="" to=""/>
         }
         <Route path="/" component={DashboardPage}/>
         {/*<Redirect to="error/error-v1"/>*/}

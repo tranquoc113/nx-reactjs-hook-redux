@@ -1,0 +1,21 @@
+.Nav_link{
+  color: #a2a3b7;
+  .MuiListItemIcon-root {
+    color: #494b74
+  }
+}
+
+.Nav_link .MuiListItem-button:hover{
+  background-color: #1b1b28 !important;
+  color: white;
+  .MuiListItemIcon-root{
+    color: #3699FF !important;
+  }
+}
+.activeRoute{
+    background-color: #1b1b28 !important;
+  color: white;
+  .MuiListItemIcon-root {
+    color: #3699FF
+  }
+}

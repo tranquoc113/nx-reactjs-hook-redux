@@ -2,10 +2,11 @@ export interface Navigation{
   title?:string;
   icon?:any;
   key?:string;
-  submenu?:[
+  url?:string;
+  items?:[
     {
-      key?:string;
-      title?:string;
+      title?:any;
+      url?:any;
     }
   ]
 }

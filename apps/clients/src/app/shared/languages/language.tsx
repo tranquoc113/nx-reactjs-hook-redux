@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import Menu, { MenuProps } from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
-import SendIcon from '@material-ui/icons/Send';
-
+import { Lang } from '@mycloudfly/models';
+import { ReactComponent as ViIcon } from '../../../assets/img/vietnam.svg';
+import { ReactComponent as EnIcon } from '../../../assets/img/english.svg';
+import { IconButton, SvgIcon } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 const StyledMenu = withStyles({
   paper: {
     border: '1px solid #d3d4d5',
@@ -29,65 +29,57 @@ const StyledMenu = withStyles({
   />
 ));
 
-const StyledMenuItem = withStyles((theme) => ({
-  root: {
-    '&:focus': {
-      backgroundColor: theme.palette.primary.main,
-      '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
-        color: theme.palette.common.white,
-      },
-    },
-  },
-}))(MenuItem);
 
 export default function Language() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
+  const {t, i18n} = useTranslation('common');
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+  const [langDefault, setDefault]=useState('vi');
 
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  const [languages] = useState<Lang[]>([
+    {
+      key:'vi',
+      name:t('TOPBAR.VI'),
+      default:true,
+      logo:ViIcon
+    },
+    {
+      key:'en',
+      name:t('TOPBAR.EN'),
+      default:true,
+      logo:EnIcon
+    }
+  ]);
   return (
-    <div>
-      <Button
-        aria-controls="customized-menu"
-        aria-haspopup="true"
-        variant="contained"
-        color="primary"
-        onClick={handleClick}
-      >
-        Open Menu
-      </Button>
-      <StyledMenu
-        id="customized-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <StyledMenuItem>
-          <ListItemIcon>
-            <SendIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText primary="Sent mail" />
-        </StyledMenuItem>
-        <StyledMenuItem>
-          <ListItemIcon>
-            <DraftsIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText primary="Drafts" />
-        </StyledMenuItem>
-        <StyledMenuItem>
-          <ListItemIcon>
-            <InboxIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText primary="Inbox" />
-        </StyledMenuItem>
-      </StyledMenu>
+    <div className="d-flex align-items-center">
+      <IconButton  aria-controls="customized-menu"
+                   onClick={handleClick}>
+        <SvgIcon component={langDefault=='vi'?ViIcon:EnIcon} viewBox="0 0 600 476.6"  />
+      </IconButton>
+
+          <StyledMenu
+            id="customized-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            {
+              languages.map((t,key)=>(
+            <MenuItem onClick={handleClose} key={key}>
+              <ListItemIcon>
+                <SvgIcon component={t.logo} viewBox="0 0 600 476.6" />
+              </ListItemIcon>
+              <ListItemText primary={t.name} />
+            </MenuItem>
+              ))
+            }
+          </StyledMenu>
     </div>
   );
 }

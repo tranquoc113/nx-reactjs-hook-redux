@@ -1,5 +1,34 @@
 {
+  "TOPBAR": {
+    "VI": "VietNam",
+    "EN": "English",
+    "BALANCE_IN_WALLET": "Balance in wallet",
+    "MY_PROFILE": "My Profile",
+    "SIGN_OUT": "Sign Out",
+    "TRIAL":"Trial",
+    "CLOUD_SERVER":"Cloud Server"
+  },
   "welcome": {
     "title": "Chao to {{framework}}"
+  },
+  "NAVIGATION":{
+    "DASHBOARD":"Dashboard",
+    "SERVER":{
+      "SERVER":"Server",
+      "INSTANCES":"Instances",
+      "SSH_KEYS":"SSH Keys",
+      "NETWORKS":"Networks",
+      "CLOUD_FIREWALL":"Cloud Firewall",
+      "MY_IMAGE":"My image"
+    },
+    "DOMAINS":{
+      "DOMAINS":"Domains",
+      "MY_DOMAINS":"My domains",
+      "DOMAIN_CONTACTS":"Domain contacts",
+      "REGISTER_DOMAINS":"Register domains"
+    },
+    "BILLING":"Billing",
+    "AFFILIATE":"Affiliate",
+    "TICKETS":"Tickets"
   }
 }

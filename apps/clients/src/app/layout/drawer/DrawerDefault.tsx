@@ -97,8 +97,7 @@ export default function DrawerDefalut({open,triggerParentUpdate,holdDrawer,trigg
   const handleClick = () => {
    console.log('click')
   };
-  //
-  //
+
   const openDrawer=()=>{
     if(!open){
       triggerParentUpdate();

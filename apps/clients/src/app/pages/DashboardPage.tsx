@@ -6,6 +6,7 @@ import {useTranslation} from "react-i18next";
 import 'bootstrap/dist/css/bootstrap.css';
 import Drawer from '@material-ui/core/Drawer';
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 export function DashboardPage() {
   const dispatch = useAppDispatch();
@@ -33,6 +34,9 @@ export function DashboardPage() {
      <button className="btn btn-success" onMouseOver={openDrawer} onMouseOut={closeDrawer}>
        Toast
      </button>
+     <NavLink to="tickets" exact activeClassName="link-active">
+       ok
+     </NavLink>
    </>
 
   );
