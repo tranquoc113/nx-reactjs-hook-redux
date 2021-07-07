@@ -11,7 +11,6 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import Language from '../../shared/languages/language';
 import Button from '@material-ui/core/Button';
 import TopBarTrial from '../../shared/topbar-trial/TopBarTrial';
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     grow: {
@@ -138,6 +137,9 @@ export default function AppBarLayout() {
             <div><span>0</span><sup>d</sup></div>
             <div> Số dư tài khoản </div>
           </a>
+
+          <Language/>
+
           <IconButton aria-label="show 17 new notifications" color="inherit">
             <Badge badgeContent={17} color="secondary">
               <NotificationsIcon color="action"/>

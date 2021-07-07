@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+
 // const ListItem = withStyles({
 //   root: {
 //     color:'#a2a3b7',
@@ -125,8 +126,7 @@ export default function ListNav() {
           title:t('NAVIGATION.DOMAINS.REGISTER_DOMAINS'),
           url:'/register-domain'
         }
-      ]
-    },
+      ]},
     {
       key:'billing',
       title:t('NAVIGATION.BILLING'),
