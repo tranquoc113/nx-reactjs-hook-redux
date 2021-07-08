@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function LayoutDemo({children}:any) {
+export default function Layout({children}:any) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
@@ -87,19 +87,19 @@ export default function LayoutDemo({children}:any) {
         })}
       >
         <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={openDrawer}
-              className={clsx(classes.menuButton, {
-              })}
-            >
-              {
-                open? <MenuIcon color="action"/>: <MenuIcon/>
-              }
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={openDrawer}
+            className={clsx(classes.menuButton, {
+            })}
+          >
+            {
+              open? <MenuIcon color="action"/>: <MenuIcon/>
+            }
 
-            </IconButton>
+          </IconButton>
           <AppBarLayout />
         </Toolbar>
       </AppBar>

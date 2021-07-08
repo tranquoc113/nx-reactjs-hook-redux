@@ -26,10 +26,16 @@
       "tags": [],
       "implicitDependencies": ["clients"]
     },
+    "helpers": {
+      "tags": []
+    },
     "models": {
       "tags": []
     },
     "redux": {
+      "tags": []
+    },
+    "services": {
       "tags": []
     },
     "ui": {

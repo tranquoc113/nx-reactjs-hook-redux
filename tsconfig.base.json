@@ -15,8 +15,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@mycloudfly/helpers": ["libs/helpers/src/index.ts"],
       "@mycloudfly/models": ["libs/models/src/index.ts"],
       "@mycloudfly/redux": ["libs/redux/src/index.ts"],
+      "@mycloudfly/services": ["libs/services/src/index.ts"],
       "@mycloudfly/ui": ["libs/ui/src/index.ts"]
     }
   },

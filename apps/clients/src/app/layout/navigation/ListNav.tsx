@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -11,8 +11,7 @@ import ListItem from "@material-ui/core/ListItem";
 import './style.scss';
 import { useTranslation } from 'react-i18next';
 import Icon from '@material-ui/core/Icon';
-import { Link, NavLink, useParams, useRouteMatch } from 'react-router-dom';
-import { useHistory ,useLocation } from 'react-router-dom';
+import { useLocation, NavLink } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -20,166 +19,159 @@ const useStyles = makeStyles((theme) => ({
   },
   nested: {
     paddingLeft: theme.spacing(4)
-  },
-  nestedSecondLevel: {
-    paddingLeft: theme.spacing(8)
-  },
-  icon: {
-    color: 'red',
   }
 }));
 
 
-// const ListItem = withStyles({
-//   root: {
-//     color:'#a2a3b7',
-//     "& .MuiListItemIcon-root": {
-//       color: "#494b74"
-//     },
-//     "&$selected": {
-//       backgroundColor: "#1b1b28",
-//       color: "white",
-//       "& .MuiListItemIcon-root": {
-//         color: "#3699FF"
-//       }
-//     },
-//     "&:hover": {
-//       backgroundColor: "#1b1b28",
-//       color: "white",
-//       "& .MuiListItemIcon-root": {
-//         color: "#3699FF"
-//       }
-//     }
-//   },
-//   selected: {}
-// })(MuiListItem)
 
-const items = [
-  { key: '1', label: 'Invoices', path: '/admin/invoices' },
-  { key: '2', label: 'Service Details', path: '/admin/service-details' },
-  { key: '3', label: 'Service Contract Details', path: '/admin/service-contract-details' },
-  { key: '4', label: 'Cost Centers', path: '/admin/cost-centers' },
-  { key: '5', label: 'Clients', path: '/admin/clients' },
-  { key: '6', label: 'Vendors', path: '/admin/vendors' }
-]
 export default function ListNav() {
   const classes = useStyles();
   const {t} = useTranslation('common');
-  const [navigations] = useState([
+  const navigations = [
     {
+      id:'1',
       key:'dashboard',
       title:t('NAVIGATION.DASHBOARD'),
       icon:'dashboard',
-      url:'/'
+      url:'/',
+      items:[]
     },
     {
+      id:'2',
       key:'server',
       title:t('NAVIGATION.SERVER.SERVER'),
       icon:'storage',
       url:'/server/instances',
       items:[
         {
+          id:'2.1',
           key:'server',
           title:t('NAVIGATION.SERVER.INSTANCES'),
           url:'/server/instances'
         },
         {
-          key:'sshkeys',
+          id:'2.2',
+          key:'server',
           title:t('NAVIGATION.SERVER.SSH_KEYS'),
           url:'/server/sshkeys'
         },
         {
-          key:'networks',
+          id:'2.3',
+          key:'server',
           title:t('NAVIGATION.SERVER.NETWORKS'),
-          url:'/networks'
+          url:'/server/networks'
         },
         {
-          key:'cloudfirewall',
+          id:'2.4',
+          key:'server',
           title:t('NAVIGATION.SERVER.CLOUD_FIREWALL'),
-          url:'/cloud-firewall'
+          url:'/server/cloud-firewall'
         },
         {
-          key:'myimage',
+          id:'2.5',
+          key:'server',
           title:t('NAVIGATION.SERVER.MY_IMAGE'),
-          url:'/my-image'
+          url:'/server/my-image'
         }
       ]
     },
     {
+      id:'3',
       key:'domains',
       title:t('NAVIGATION.DOMAINS.DOMAINS'),
       icon:'language',
       url:'/domains',
       items:[
         {
+          id:'3.1',
           key:'domains',
           title:t('NAVIGATION.DOMAINS.MY_DOMAINS'),
           url:'/domains'
         },
         {
-          key:'contacts',
+          id:'3.2',
+          key:'domains',
           title:t('NAVIGATION.DOMAINS.DOMAIN_CONTACTS'),
-          url:'/contacts'
+          url:'/domains/contacts'
         },
         {
-          key:'registerdomain',
+          id:'3.3',
+          key:'domains',
           title:t('NAVIGATION.DOMAINS.REGISTER_DOMAINS'),
-          url:'/register-domain'
+          url:'/domains/register-domain'
         }
       ]},
     {
+      id:'4',
       key:'billing',
       title:t('NAVIGATION.BILLING'),
       icon:'attach_money',
-      url:'/billing'
+      url:'/billing',
+      items:[]
     },
     {
+      id:'5',
       key:'affiliate',
       title:t('NAVIGATION.AFFILIATE'),
       icon:'text_format',
-      url:'/affiliate'
+      url:'/affiliate',
+      items:[]
     },
     {
+      id:'6',
       key:'tickets',
       title:t('NAVIGATION.TICKETS'),
       icon:'receipt',
-      url:'/tickets'
+      url:'/tickets',
+      items:[]
+
     },
-  ]);
-  const [open, setOpen] = React.useState('');
-  const [openChild, setOpenChild]=useState('');
+  ];
+  const [open, setOpen] = React.useState(false);
 
   const location = useLocation()
 
-  const history = useHistory()
+  // @ts-ignore
+  const [selectedKey, setSelectedKey] = useState(navigations.reduce((prev, product) => prev || product?.items.find(item => item.url === location.pathname), undefined)?.key)
 
-  // const [selectedKey, setSelectedKey] = useState(items.find(_item => location.pathname.startsWith(_item.path)).key)
-
-  const onClickMenu = (item:any) => {
-    // const clicked = items.find(_item => _item.key === item.key)
-    // history.push(clicked.path)
+  const onClickMenu = () => {
+    setOpen(!open)
   }
 
   useEffect(() => {
-    // setSelectedKey(items.find(_item => location.pathname.startsWith(_item.path)).key)
-
+    // @ts-ignore
+    setSelectedKey(navigations.reduce((prev, product) => prev || product?.items.find(item => item.url === location.pathname), undefined)?.key)
   }, [location])
 
-
-  console.log(location)
-  console.log(history)
-  const handleClick = (val:string) => {
-    if(open==val){
-      setOpen('');
-      return;
+  useEffect(()=>{
+    if(selectedKey){
+      setOpen(true);
     }
-    setOpen(val);
-  };
-
-  const handChild=(val:string)=>{
-    setOpenChild(val);
-  }
-
+  },[selectedKey])
+  const ss=[{
+    url:'a'
+  },
+    {url:'b'}]
+  const numbers = [1, 2, 3, 4, 5];
+  const listItems = numbers.map((number) =>
+    <li key={number.toString()}>
+      {number}
+    </li>
+  );
+  const listDta=navigations.map((item)=>
+    <a key={item.id}>
+      {item.url}
+      {console.log(item)}
+      {
+        item.items.map((s)=>
+          (
+            <li key={s.id}>
+              {s.title}
+            </li>
+          ))
+      }
+    </a>
+  )
   return (
     <List
       component="nav"
@@ -187,46 +179,46 @@ export default function ListNav() {
     >
       {
         navigations.map((t)=>(
-          t?.items?
-           <>
-           <NavLink to={t.url} exact activeClassName="activeRoute" className="Nav_link" key={t.key}>
-             <ListItem button onClick={()=>handleClick(t.key)} >
-               <ListItemIcon>
-                 <Icon>{t.icon}</Icon>
-               </ListItemIcon>
-               <ListItemText primary={t.title} />
-               {location.pathname==t.url ? <ExpandLess /> : <ExpandMore />}
-             </ListItem>
-           </NavLink>
-             <Collapse in={location.pathname==t.url} timeout="auto" unmountOnExit>
-               {
-                 t.items.map((child)=>(
-                   <List component="div" disablePadding key={child.key}>
-                     <NavLink to={child.url} exact activeClassName="activeRoute" className="Nav_link" >
-                     <ListItem  selected={open==child.key}
-                       className={classes.nested}
-                       button
-                     >
-                       <ListItemIcon>
-                         <StarBorder />
-                       </ListItemIcon>
-                       <ListItemText primary={child.title} />
-                     </ListItem>
-                     </NavLink>
-                   </List>
-                 ))
-               }
-             </Collapse>
-           </>
-          :
-            <NavLink to={t.url} exact activeClassName="activeRoute" className="Nav_link" key={t.key}>
-              <ListItem button  className="MenuItem" >
-                <ListItemIcon>
-                  <Icon>{t.icon}</Icon>
-                </ListItemIcon>
-                <ListItemText primary={t.title} />
-              </ListItem>
-        </NavLink>
+          t?.items?.length>0?
+            <>
+          <NavLink to={t.url} exact activeClassName="activeRoute" className={selectedKey==t.key&&open?"Nav_link activeRoute":"Nav_link"} onClick={onClickMenu} key={t.id}>
+            <ListItem >
+              <ListItemIcon>
+                <Icon>{t.icon}</Icon>
+              </ListItemIcon>
+              <ListItemText primary={t.title} />
+              {selectedKey==t.key&&open ? <ExpandLess /> : <ExpandMore />}
+            </ListItem>
+          </NavLink>
+              <Collapse in={selectedKey==t.key&& open} timeout="auto" unmountOnExit>
+                {
+                  t.items.map((child,i)=>(
+                    <List component="div" disablePadding key={child.id}>
+                      <NavLink to={child.url} exact activeClassName="activeRoute" className="Nav_link">
+                        <ListItem
+                          className={classes.nested}
+                          button
+                        >
+                          <ListItemIcon>
+                            <StarBorder />
+                          </ListItemIcon>
+                          <ListItemText primary={child.title} />
+                        </ListItem>
+                      </NavLink>
+                    </List>
+                  ))
+                }
+              </Collapse>
+              </>
+              :
+                <NavLink to={t.url} exact activeClassName="activeRoute" className="Nav_link"  key={t.id}>
+                  <ListItem button  className="MenuItem" >
+                    <ListItemIcon>
+                      <Icon>{t.icon}</Icon>
+                    </ListItemIcon>
+                    <ListItemText primary={t.title} />
+                  </ListItem>
+                </NavLink>
         ))
       }
     </List>

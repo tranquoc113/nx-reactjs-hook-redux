@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Menu, { MenuProps } from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -9,6 +9,8 @@ import { ReactComponent as ViIcon } from '../../../assets/img/vietnam.svg';
 import { ReactComponent as EnIcon } from '../../../assets/img/english.svg';
 import { IconButton, SvgIcon } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { changeLanguage } from '@mycloudfly/redux';
 const StyledMenu = withStyles({
   paper: {
     border: '1px solid #d3d4d5',
@@ -33,14 +35,25 @@ const StyledMenu = withStyles({
 export default function Language() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const {t, i18n} = useTranslation('common');
+  const language = useAppSelector((state) => state.language.value);
+  const dispatch = useAppDispatch();
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const [langDefault, setDefault]=useState('vi');
+  const [langDefault, setLangDefault]=useState('vi');
 
+  useEffect(()=>{
+    setLangDefault(language);
+  },[langDefault])
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const changeLang=(item:any)=>{
+    dispatch(changeLanguage(item.key));
+    setLangDefault(item.key);
+    i18n.changeLanguage(item.key);
+    setAnchorEl(null);
+  }
   const [languages] = useState<Lang[]>([
     {
       key:'vi',
@@ -71,7 +84,7 @@ export default function Language() {
           >
             {
               languages.map((t,key)=>(
-            <MenuItem onClick={handleClose} key={key}>
+            <MenuItem onClick={()=>changeLang(t)} key={key}>
               <ListItemIcon>
                 <SvgIcon component={t.logo} viewBox="0 0 600 476.6" />
               </ListItemIcon>

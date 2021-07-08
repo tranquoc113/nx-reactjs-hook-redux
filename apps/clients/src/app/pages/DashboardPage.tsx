@@ -4,7 +4,6 @@ import Button from '@material-ui/core/Button';
 import { decrement, increment } from '@mycloudfly/redux';
 import {useTranslation} from "react-i18next";
 import 'bootstrap/dist/css/bootstrap.css';
-import Drawer from '@material-ui/core/Drawer';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
